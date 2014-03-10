@@ -1,8 +1,9 @@
+//// The command factory. Creates the commands.
+
 function CommandFactory($puppy) {
   this.$puppy = $puppy
 }
 
-// The command factory method. Creates a command based on the key code.
 CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
   var direction = utils.keyCodeToName[keyCode] // Convert key code to direction name
 
@@ -21,7 +22,8 @@ CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
 }
 
 
-// The base class for all commands
+//// The base class for all commands
+
 function Command($puppy) {
   this.$puppy = $puppy
 }
@@ -45,27 +47,27 @@ Command.prototype.right = function() {
 Command.extend = utils.extend
 
 
-// The actual commands.
+//// The actual commands.
 
-MoveUpCommand = Command.extend({
+var MoveUpCommand = Command.extend({
   name: 'up', // Used only for logging.
   run:  function() { this.up() },
   undo: function() { this.down() }
 })
 
-MoveDownCommand = Command.extend({
+var MoveDownCommand = Command.extend({
   name: 'down',
   run:  function() { this.down() },
   undo: function() { this.up() }
 })
 
-MoveLeftCommand = Command.extend({
+var MoveLeftCommand = Command.extend({
   name: 'left',
   run:  function() { this.left() },
   undo: function() { this.right() }
 })
 
-MoveRightCommand = Command.extend({
+var MoveRightCommand = Command.extend({
   name: 'right',
   run:  function() { this.right() },
   undo: function() { this.left() }
