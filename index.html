@@ -27,8 +27,10 @@
   <script src="utils.js"></script>
   <script src="commands.js"></script>
   <script src="mediator.js"></script>
-  <script src="command_log_subscriber.js"></script>
+  <script src="log_subscriber.js"></script>
+
   <script src="puppy_mover.js"></script>
+
   <script>
     var mediator = new Mediator($('#puppy'))
     // var mediator = new PuppyMover($('#puppy'), $('#commands'))
@@ -37,7 +39,7 @@
 
     $('#undo').click(function() { mediator.undo() })
 
-    new CommandLogSubscriber(mediator, $('#commands'))
+    new LogSubscriber(mediator, $('#commands'))
 
   </script>
 

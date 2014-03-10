@@ -1,4 +1,4 @@
-function CommandLogSubscriber(publisher, $log) {
+function LogSubscriber(publisher, $log) {
   this.$log = $log
 
   var self = this
@@ -8,10 +8,10 @@ function CommandLogSubscriber(publisher, $log) {
   publisher.on('undoCommand', function(e, command) { self.onUndoCommand(command) })
 }
 
-CommandLogSubscriber.prototype.onRunCommand = function(command) {
+LogSubscriber.prototype.onRunCommand = function(command) {
   this.$log.append('<li>' + command.name + '</li>')
 }
 
-CommandLogSubscriber.prototype.onUndoCommand = function(command) {
+LogSubscriber.prototype.onUndoCommand = function(command) {
   this.$log.find('li:last').remove()
 }

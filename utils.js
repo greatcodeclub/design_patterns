@@ -33,6 +33,7 @@ utils.extend = function(prototypeProperties) {
   return child
 }
 
+// Partial mapping of key codes to key names
 utils.keyCodeToName = {
   37: 'left',
   38: 'up',
