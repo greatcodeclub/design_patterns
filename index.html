@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Puppy Movin'</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #puppy {
+      position: absolute;
+      top: 50px;
+      left: 250px;
+
+      background: red;
+      color: white;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <p><button id="undo">Undo</button> Use arrows to move the puppy</p>
+  
+  <h3>Commands</h3>
+  <ol id="commands"></ol>
+
+  <span id="puppy">PUPPY</span>
+
+  <script src="jquery.js"></script>
+  <script src="commands.js"></script>
+  <script src="mediator.js"></script>
+  <script src="command_log_subscriber.js"></script>
+  <script>
+    var mediator = new Mediator($('#puppy'))
+
+    $('body').keydown(function(e) { mediator.move(e.which) })
+
+    $('#undo').click(function() { mediator.undo() })
+
+    new CommandLogSubscriber(mediator, $('#commands'))
+  </script>
+
+</body>
+</html>
