@@ -1,90 +1,72 @@
-var Commands = {}
-
-Commands.keys = {
-  37: 'Left',
-  38: 'Up',
-  39: 'Right',
-  40: 'Down'
+function CommandFactory($puppy) {
+  this.$puppy = $puppy
 }
 
-// Factory method. Creates a command based on the key code.
-Commands.createCommandFromKeyCode = function(keyCode, $puppy) {
-  var direction = this.keys[keyCode] // Convert key code to direction name
+// The command factory method. Creates a command based on the key code.
+CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
+  var direction = utils.keyCodeToName[keyCode] // Convert key code to direction name
 
   if (direction) {
-    var commandClass = this['Move' + direction + 'Command'] // Eg.: Commands['MoveUpCommand']
+    // Following lines are the dynamic equivalent to:
+    //    window['MoveUpCommand']
+    // and
+    //    window.MoveUpCommand
+    // and
+    //    MoveUpCommand
+    var capitalizedDirection = direction[0].toUpperCase() + direction.substr(1),
+        commandClass = window['Move' + capitalizedDirection + 'Command']
 
-    return new commandClass($puppy)
+    return new commandClass(this.$puppy)
   }
 }
 
 
 // The base class for all commands
-Commands.Command = function($puppy) {
+function Command($puppy) {
   this.$puppy = $puppy
 }
 
 // Some helper methods we'll use later to move the puppy.
-Commands.Command.prototype.up = function() {
+Command.prototype.up = function() {
   this.$puppy.animate({'top': '-=30px'})
 }
-Commands.Command.prototype.down = function() {
+Command.prototype.down = function() {
   this.$puppy.animate({'top': '+=30px'})
 }
-Commands.Command.prototype.left = function() {
+Command.prototype.left = function() {
   this.$puppy.animate({'left': '-=30px'})
 }
-Commands.Command.prototype.right = function() {
+Command.prototype.right = function() {
   this.$puppy.animate({'left': '+=30px'})
 }
 
-
-// The command to move the puppy up.
-Commands.MoveUpCommand = function() {
-  Commands.Command.apply(this, arguments) // Call the super constructor
-  this.name = 'MoveUpCommand' // The name is only used in the log
-}
-
-// Inherit from Commands.Command
-Commands.MoveUpCommand.prototype = Object.create(Commands.Command.prototype)
-Commands.MoveUpCommand.prototype.constructor = Commands.MoveUpCommand
-
-// Running the command moves it up. Undoing does the inverse operation.
-Commands.MoveUpCommand.prototype.run  = function() { this.up() }
-Commands.MoveUpCommand.prototype.undo = function() { this.down() }
+// Enabled using Command.extend({ prototype properties }) instead of the usual
+// inheritance boilerplate code. 
+Command.extend = utils.extend
 
 
-// Code for the other commands is the same. Only the `run` and `undo` methods
-// change to move in the correction directions.
+// The actual commands.
 
-Commands.MoveDownCommand = function() {
-  Commands.Command.apply(this, arguments)
-  this.name = 'MoveDownCommand'
-}
-Commands.MoveDownCommand.prototype = Object.create(Commands.Command.prototype)
-Commands.MoveDownCommand.prototype.constructor = Commands.MoveDownCommand
+MoveUpCommand = Command.extend({
+  name: 'up', // Used only for logging.
+  run:  function() { this.up() },
+  undo: function() { this.down() }
+})
 
-Commands.MoveDownCommand.prototype.run  = function() { this.down() }
-Commands.MoveDownCommand.prototype.undo = function() { this.up() }
+MoveDownCommand = Command.extend({
+  name: 'down',
+  run:  function() { this.down() },
+  undo: function() { this.up() }
+})
 
+MoveLeftCommand = Command.extend({
+  name: 'left',
+  run:  function() { this.left() },
+  undo: function() { this.right() }
+})
 
-Commands.MoveLeftCommand = function() {
-  Commands.Command.apply(this, arguments)
-  this.name = 'MoveLeftCommand'
-}
-Commands.MoveLeftCommand.prototype = Object.create(Commands.Command.prototype)
-Commands.MoveLeftCommand.prototype.constructor = Commands.MoveLeftCommand
-
-Commands.MoveLeftCommand.prototype.run  = function() { this.left() }
-Commands.MoveLeftCommand.prototype.undo = function() { this.right() }
-
-
-Commands.MoveRightCommand = function() {
-  Commands.Command.apply(this, arguments)
-  this.name = 'MoveRightCommand'
-}
-Commands.MoveRightCommand.prototype = Object.create(Commands.Command.prototype)
-Commands.MoveRightCommand.prototype.constructor = Commands.MoveRightCommand
-
-Commands.MoveRightCommand.prototype.run  = function() { this.right() }
-Commands.MoveRightCommand.prototype.undo = function() { this.left() }
+MoveRightCommand = Command.extend({
+  name: 'right',
+  run:  function() { this.right() },
+  undo: function() { this.left() }
+})

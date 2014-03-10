@@ -4,11 +4,13 @@ function Mediator($puppy) {
 
   // The commands stack
   this.commands = []
+
+  this.commandFactory = new CommandFactory($puppy)
 }
 
 Mediator.prototype.move = function(keyCode) {
   // Create the command, using a factory method.
-  var command = Commands.createCommandFromKeyCode(keyCode, this.$puppy)
+  var command = this.commandFactory.createCommandFromKeyCode(keyCode)
 
   if (command) {
     command.run()
@@ -25,10 +27,6 @@ Mediator.prototype.undo = function() {
   if (command) {
     command.undo()
     this.trigger('undoCommand', command)
-
-  } else {
-    // No commands to undo!
-    alert("Nothing to undo")
   }
 }
 
