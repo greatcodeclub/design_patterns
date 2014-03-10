@@ -18,8 +18,8 @@
 <body>
   <p><button id="undo">Undo</button> Use arrows to move the puppy</p>
   
-  <h3>Commands</h3>
-  <ol id="commands"></ol>
+  <h3>Moves</h3>
+  <ol id="log"></ol>
 
   <span id="puppy">PUPPY</span>
 
@@ -33,13 +33,13 @@
 
   <script>
     var mediator = new Mediator($('#puppy'))
-    // var mediator = new PuppyMover($('#puppy'), $('#commands'))
+    // var mediator = new PuppyMover($('#puppy'), $('#log'))
 
     $('body').keydown(function(e) { mediator.move(e.which) })
 
     $('#undo').click(function() { mediator.undo() })
 
-    new LogSubscriber(mediator, $('#commands'))
+    new LogSubscriber(mediator, $('#log'))
 
   </script>
 
