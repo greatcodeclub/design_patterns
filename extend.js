@@ -1,11 +1,18 @@
-var utils = {}
-
 // JavaScript classical inheritance, in one single call!
 //
-// Based on the internal extend utility from Backbone (Backbone.View.extend).
-utils.extend = function(prototypeProperties) {
-  var parent = this,
-      child
+// Usage:
+//
+//   function Parent() {}
+//   Parent.extend = extend
+//
+//   var Child = Parent.extend({
+//     constructor: function() { ... }, // Defaults to calling super
+//     otherMethod: function() { ... }
+//   })
+//
+// Based on the internal `extend` function from Backbone (Backbone.View.extend).
+var extend = function(prototypeProperties) {
+  var parent = this, child
 
   // The constructor function for the new subclass is either defined by you
   // (the "constructor" property in your `extend` definition), or defaulted
@@ -18,9 +25,7 @@ utils.extend = function(prototypeProperties) {
 
   // Set the prototype chain to inherit from `parent`, without calling
   // `parent`'s constructor function.
-  var Surrogate = function() { this.constructor = child }
-  Surrogate.prototype = parent.prototype
-  child.prototype = new Surrogate
+  child.prototype = Object.create(parent.prototype)
 
   // Add prototype properties (instance properties) to the subclass,
   // if supplied.
@@ -31,12 +36,4 @@ utils.extend = function(prototypeProperties) {
   child.__super__ = parent.prototype
 
   return child
-}
-
-// Partial mapping of key codes to key names
-utils.keyCodeToName = {
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down'
 }
