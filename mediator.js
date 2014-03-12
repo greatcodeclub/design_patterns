@@ -1,11 +1,11 @@
-function Mediator($puppy) {
-  // The puppy we're movin' here.
-  this.$puppy = $puppy
+function Mediator($pony) {
+  // The pony we're movin' here.
+  this.$pony = $pony
 
   // The commands stack
   this.commands = []
 
-  this.commandFactory = new CommandFactory($puppy)
+  this.commandFactory = new CommandFactory($pony)
 }
 
 Mediator.prototype.move = function(keyCode) {

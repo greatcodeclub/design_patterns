@@ -1,10 +1,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Puppy Movin'</title>
+  <title>Pony Movin'</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    #puppy {
+    #pony {
       position: absolute;
       top: 50px;
       left: 250px;
@@ -16,30 +16,30 @@
   </style>
 </head>
 <body>
-  <p><button id="undo">Undo</button> Use arrows to move the puppy</p>
+  <p><button id="undo">Undo</button> Use arrows to move the pony</p>
   
   <h3>Moves</h3>
   <ol id="log"></ol>
 
-  <span id="puppy">PUPPY</span>
+  <img id="pony" src="pony.jpg" />
 
-  <script src="jquery.js"></script>
+  <script src="vendor/jquery.js"></script>
   <script src="utils.js"></script>
   <script src="commands.js"></script>
   <script src="mediator.js"></script>
   <script src="log_subscriber.js"></script>
 
-  <script src="puppy_mover.js"></script>
+  <script src="pony_mover.js"></script>
 
   <script>
-    var mediator = new Mediator($('#puppy'))
-    // var mediator = new PuppyMover($('#puppy'), $('#log'))
+    var mediator = new Mediator($('#pony'))
+    new LogSubscriber(mediator, $('#log'))
+    // var mediator = new PonyMover($('#pony'), $('#log'))
 
     $('body').keydown(function(e) { mediator.move(e.which) })
 
     $('#undo').click(function() { mediator.undo() })
 
-    new LogSubscriber(mediator, $('#log'))
 
   </script>
 

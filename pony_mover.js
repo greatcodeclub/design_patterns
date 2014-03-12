@@ -1,29 +1,29 @@
-function PuppyMover($puppy, $log) {
-  this.$puppy = $puppy
+function PonyMover($pony, $log) {
+  this.$pony = $pony
   this.$log = $log
 
   this.moves = []
 }
 
-PuppyMover.prototype.moveDirection = function(direction) {
+PonyMover.prototype.moveDirection = function(direction) {
   switch (direction) {
     case 'up':
-      this.$puppy.animate({'top': '-=30px'})
+      this.$pony.animate({'top': '-=30px'})
       break
     case 'down':
-      this.$puppy.animate({'top': '+=30px'})
+      this.$pony.animate({'top': '+=30px'})
       break
     case 'left':
-      this.$puppy.animate({'left': '-=30px'})
+      this.$pony.animate({'left': '-=30px'})
       break
     case 'right':
-      this.$puppy.animate({'left': '+=30px'})
+      this.$pony.animate({'left': '+=30px'})
       break
   }
 }
 
-PuppyMover.prototype.move = function(keyCode) {
-  var direction = utils.keyCodeToName[keyCode] // Convert key code to direction name
+PonyMover.prototype.move = function(keyCode) {
+  var direction = keyCodeToName[keyCode] // Convert key code to direction name
 
   if (direction) {
     this.moveDirection(direction)
@@ -32,14 +32,14 @@ PuppyMover.prototype.move = function(keyCode) {
   }
 }
 
-PuppyMover.prototype.oppositeDirections = {
+PonyMover.prototype.oppositeDirections = {
   'up': 'down',
   'down': 'up',
   'left': 'right',
   'right': 'left'
 }
 
-PuppyMover.prototype.undo = function() {
+PonyMover.prototype.undo = function() {
   var direction = this.moves.pop()
 
   if (direction) {

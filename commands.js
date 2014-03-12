@@ -1,11 +1,11 @@
 //// The command factory. Creates the commands.
 
-function CommandFactory($puppy) {
-  this.$puppy = $puppy
+function CommandFactory($pony) {
+  this.$pony = $pony
 }
 
 CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
-  var direction = utils.keyCodeToName[keyCode] // Convert key code to direction name
+  var direction = keyCodeToName[keyCode] // Convert key code to direction name
 
   if (direction) {
     // Following lines are the dynamic equivalent to:
@@ -17,34 +17,34 @@ CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
     var capitalizedDirection = direction[0].toUpperCase() + direction.substr(1),
         commandClass = window['Move' + capitalizedDirection + 'Command']
 
-    return new commandClass(this.$puppy)
+    return new commandClass(this.$pony)
   }
 }
 
 
 //// The base class for all commands
 
-function Command($puppy) {
-  this.$puppy = $puppy
+function Command($pony) {
+  this.$pony = $pony
 }
 
-// Some helper methods we'll use later to move the puppy.
+// Some helper methods we'll use later to move the pony.
 Command.prototype.up = function() {
-  this.$puppy.animate({'top': '-=30px'})
+  this.$pony.animate({'top': '-=30px'})
 }
 Command.prototype.down = function() {
-  this.$puppy.animate({'top': '+=30px'})
+  this.$pony.animate({'top': '+=30px'})
 }
 Command.prototype.left = function() {
-  this.$puppy.animate({'left': '-=30px'})
+  this.$pony.animate({'left': '-=30px'})
 }
 Command.prototype.right = function() {
-  this.$puppy.animate({'left': '+=30px'})
+  this.$pony.animate({'left': '+=30px'})
 }
 
 // Enabled using Command.extend({ prototype properties }) instead of the usual
 // inheritance boilerplate code. 
-Command.extend = utils.extend
+Command.extend = extend
 
 
 //// The actual commands.
