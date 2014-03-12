@@ -9,6 +9,7 @@ function LogSubscriber(publisher, $log) {
 }
 
 LogSubscriber.prototype.onRunCommand = function(command) {
+  var command = new CommandDecorator(command)
   this.$log.append('<li>' + command.name + '</li>')
 }
 

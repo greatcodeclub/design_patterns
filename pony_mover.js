@@ -2,6 +2,7 @@ function PonyMover($pony, $log) {
   this.$pony = $pony
   this.$log = $log
 
+  // Stack of last moves
   this.moves = []
 }
 
