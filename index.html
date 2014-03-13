@@ -24,27 +24,14 @@
   <img id="pony" src="pony.jpg" />
 
   <script src="vendor/jquery.js"></script>
-  <script src="key_codes.js"></script>
-  <script src="extend.js"></script>
-  <script src="commands.js"></script>
-  <script src="command_factory.js"></script>
-  <script src="mediator.js"></script>
-  <script src="command_logger.js"></script>
-  <script src="command_decorator.js"></script>
-  <script src="cache.js"></script>
-
   <script src="pony_mover.js"></script>
 
   <script>
-    var mediator = new Mediator($('#pony'))
-    new CommandLogger(mediator, $('#log'))
-    // var mediator = new PonyMover($('#pony'), $('#log'))
+    var mover = new PonyMover($('#pony'), $('#log'))
 
-    $('body').keydown(function(e) { mediator.move(e.which) })
+    $('body').keydown(function(e) { mover.move(e.which) })
 
-    $('#undo').click(function() { mediator.undo() })
-
-
+    $('#undo').click(function() { mover.undo() })
   </script>
 
 </body>
