@@ -2,7 +2,7 @@ function PonyMover($pony, $log) {
   this.$pony = $pony
   this.$log = $log
 
-  // Stack of last moves
+  // Stack of all the moves. Eg.: ['left', 'up', 'down']
   this.moves = []
 }
 
@@ -41,6 +41,7 @@ PonyMover.prototype.oppositeDirections = {
 }
 
 PonyMover.prototype.undo = function() {
+  // Get the last move
   var direction = this.moves.pop()
 
   if (direction) {
