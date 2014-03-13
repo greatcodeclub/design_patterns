@@ -2,24 +2,20 @@ function PonyMover($pony, $log) {
   this.$pony = $pony
   this.$log = $log
 
-  // Stack of all the moves. Eg.: ['left', 'up', 'down']
-  this.moves = []
+  // Stack of all the commands.
+  this.commands = []
 }
 
-PonyMover.prototype.moveDirection = function(direction) {
+PonyMover.prototype.createCommand = function(direction) {
   switch (direction) {
     case 'up':
-      this.$pony.animate({'top': '-=30px'})
-      break
+      return new MoveUpCommand(this.$pony)
     case 'down':
-      this.$pony.animate({'top': '+=30px'})
-      break
+      return new MoveDownCommand(this.$pony)
     case 'left':
-      this.$pony.animate({'left': '-=30px'})
-      break
+      return new MoveLeftCommand(this.$pony)
     case 'right':
-      this.$pony.animate({'left': '+=30px'})
-      break
+      return new MoveRightCommand(this.$pony)
   }
 }
 
@@ -27,27 +23,19 @@ PonyMover.prototype.move = function(keyCode) {
   var direction = keyCodeToName[keyCode] // Convert key code to direction name
 
   if (direction) {
-    this.moveDirection(direction)
-    this.moves.push(direction)
-    this.$log.append('<li>' + direction + '</li>')
+    var command = this.createCommand(direction)
+    command.run()
+    this.commands.push(command)
+    this.$log.append('<li>' + command.name + '</li>')
   }
 }
 
-PonyMover.prototype.oppositeDirections = {
-  'up': 'down',
-  'down': 'up',
-  'left': 'right',
-  'right': 'left'
-}
-
 PonyMover.prototype.undo = function() {
-  // Get the last move
-  var direction = this.moves.pop()
+  // Get the last command
+  var command = this.commands.pop()
 
-  if (direction) {
-    var oppositeDirection = this.oppositeDirections[direction]
-
-    this.moveDirection(oppositeDirection)
+  if (command) {
+    command.undo()
     this.$log.find('li:last').remove()
   }
 }
