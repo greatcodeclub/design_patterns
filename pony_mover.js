@@ -26,7 +26,7 @@ PonyMover.prototype.move = function(keyCode) {
     var command = this.createCommand(direction)
     command.run()
     this.commands.push(command)
-    this.$log.append('<li>' + command.name + '</li>')
+    this.$log.append('<li>' + direction + '</li>')
   }
 }
 
