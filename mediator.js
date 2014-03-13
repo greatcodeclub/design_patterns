@@ -30,7 +30,9 @@ Mediator.prototype.undo = function() {
   }
 }
 
-// Publisher / subscriber design pattern.
+//// Observer design pattern.
+//
+// Aka Publisher / subscriber.
 //
 // Undocumented (but supported) feature of jQuery. You can bind event handlers
 // to plain JS objects like so.
