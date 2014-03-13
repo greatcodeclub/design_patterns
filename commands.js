@@ -17,33 +17,77 @@ Command.prototype.right = function() {
   this.$pony.animate({'left': '+=30px'})
 }
 
-// Enabled using Command.extend({ prototype properties }) instead of the usual
-// inheritance boilerplate code. 
-Command.extend = extend
-
 
 //// The actual commands.
 
-var MoveUpCommand = Command.extend({
-  name: 'up', // Used only for logging.
-  run:  function() { this.up() },
-  undo: function() { this.down() }
-})
+function MoveUpCommand($pony) {
+  Command.call(this, $pony)
+}
 
-var MoveDownCommand = Command.extend({
-  name: 'down',
-  run:  function() { this.down() },
-  undo: function() { this.up() }
-})
+MoveUpCommand.prototype = Object.create(Command.prototype)
+MoveUpCommand.prototype.constructor = MoveUpCommand
 
-var MoveLeftCommand = Command.extend({
-  name: 'left',
-  run:  function() { this.left() },
-  undo: function() { this.right() }
-})
+MoveUpCommand.prototype.name = 'up'
 
-var MoveRightCommand = Command.extend({
-  name: 'right',
-  run:  function() { this.right() },
-  undo: function() { this.left() }
-})
+MoveUpCommand.prototype.run = function() {
+  this.up()
+}
+
+MoveUpCommand.prototype.undo = function() {
+  this.down()
+}
+
+
+function MoveDownCommand($pony) {
+  Command.call(this, $pony)  
+}
+
+MoveDownCommand.prototype = Object.create(Command.prototype)
+MoveDownCommand.prototype.constructor = MoveDownCommand
+
+MoveDownCommand.prototype.name = 'down'
+
+MoveDownCommand.prototype.run = function() {
+  this.down()
+}
+
+MoveDownCommand.prototype.undo = function() {
+  this.up()
+}
+
+
+function MoveLeftCommand($pony) {
+  Command.call(this, $pony)  
+}
+
+MoveLeftCommand.prototype = Object.create(Command.prototype)
+MoveLeftCommand.prototype.constructor = MoveLeftCommand
+
+MoveLeftCommand.prototype.name = 'left'
+
+MoveLeftCommand.prototype.run = function() {
+  this.left()
+}
+
+MoveLeftCommand.prototype.undo = function() {
+  this.right()
+}
+
+
+function MoveRightCommand($pony) {
+  Command.call(this, $pony)  
+}
+
+MoveRightCommand.prototype = Object.create(Command.prototype)
+MoveRightCommand.prototype.constructor = MoveRightCommand
+
+MoveRightCommand.prototype.name = 'right'
+
+MoveRightCommand.prototype.run = function() {
+  this.right()
+}
+
+MoveRightCommand.prototype.undo = function() {
+  this.left()
+}
+
