@@ -28,8 +28,7 @@ function MoveUpCommand($pony) {
   Command.call(this, $pony)
 }
 
-MoveUpCommand.prototype = Object.create(Command.prototype)
-MoveUpCommand.prototype.constructor = MoveUpCommand
+utils.inherit(MoveUpCommand, Command)
 
 MoveUpCommand.prototype.run = function() {
   this.move('up')
@@ -44,8 +43,7 @@ function MoveDownCommand($pony) {
   Command.call(this, $pony)  
 }
 
-MoveDownCommand.prototype = Object.create(Command.prototype)
-MoveDownCommand.prototype.constructor = MoveDownCommand
+utils.inherit(MoveDownCommand, Command)
 
 MoveDownCommand.prototype.run = function() {
   this.move('down')
@@ -60,8 +58,7 @@ function MoveLeftCommand($pony) {
   Command.call(this, $pony)  
 }
 
-MoveLeftCommand.prototype = Object.create(Command.prototype)
-MoveLeftCommand.prototype.constructor = MoveLeftCommand
+utils.inherit(MoveLeftCommand, Command)
 
 MoveLeftCommand.prototype.run = function() {
   this.move('left')
@@ -76,8 +73,7 @@ function MoveRightCommand($pony) {
   Command.call(this, $pony)  
 }
 
-MoveRightCommand.prototype = Object.create(Command.prototype)
-MoveRightCommand.prototype.constructor = MoveRightCommand
+utils.inherit(MoveRightCommand, Command)
 
 MoveRightCommand.prototype.run = function() {
   this.move('right')
@@ -86,4 +82,3 @@ MoveRightCommand.prototype.run = function() {
 MoveRightCommand.prototype.undo = function() {
   this.move('left')
 }
-
