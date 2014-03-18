@@ -25,7 +25,7 @@ if (~window.navigator.userAgent.indexOf("MSIE")) {
 
 
 // The proper solution: Use a Polyfill for Object.create
-// Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/c
+// Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill
 
 // if (typeof Object.create !== 'function') {
 //   Object.create = function(object) {
