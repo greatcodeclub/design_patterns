@@ -30,6 +30,8 @@ function MoveUpCommand($pony) {
 
 utils.inherit(MoveUpCommand, Command)
 
+MoveUpCommand.prototype.name = 'up'
+
 MoveUpCommand.prototype.run = function() {
   this.move('up')
 }
@@ -44,6 +46,8 @@ function MoveDownCommand($pony) {
 }
 
 utils.inherit(MoveDownCommand, Command)
+
+MoveDownCommand.prototype.name = 'down'
 
 MoveDownCommand.prototype.run = function() {
   this.move('down')
@@ -60,6 +64,8 @@ function MoveLeftCommand($pony) {
 
 utils.inherit(MoveLeftCommand, Command)
 
+MoveLeftCommand.prototype.name = 'left'
+
 MoveLeftCommand.prototype.run = function() {
   this.move('left')
 }
@@ -74,6 +80,8 @@ function MoveRightCommand($pony) {
 }
 
 utils.inherit(MoveRightCommand, Command)
+
+MoveRightCommand.prototype.name = 'right'
 
 MoveRightCommand.prototype.run = function() {
   this.move('right')

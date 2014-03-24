@@ -4,29 +4,17 @@ function PonyMover($pony, $log) {
 
   // Stack of all the commands.
   this.commands = []
-}
 
-PonyMover.prototype.createCommand = function(direction) {
-  switch (direction) {
-    case 'up':
-      return new MoveUpCommand(this.$pony)
-    case 'down':
-      return new MoveDownCommand(this.$pony)
-    case 'left':
-      return new MoveLeftCommand(this.$pony)
-    case 'right':
-      return new MoveRightCommand(this.$pony)
-  }
+  this.commandFactory = new CommandFactory($pony)
 }
 
 PonyMover.prototype.move = function(keyCode) {
-  var direction = keyCodeToName[keyCode] // Convert key code to direction name
+  var command = this.commandFactory.createCommandFromKeyCode(keyCode)
 
-  if (direction) {
-    var command = this.createCommand(direction)
+  if (command) {
     command.run()
     this.commands.push(command)
-    this.$log.append('<li>' + direction + '</li>')
+    this.$log.append('<li>' + command.name + '</li>')
   }
 }
 
