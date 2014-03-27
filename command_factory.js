@@ -4,8 +4,7 @@ function CommandFactory($pony) {
 }
 
 CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
-  var self = this,
-      direction = keyCodeToName[keyCode] // Convert key code to direction name
+  var direction = keyCodeToName[keyCode] // Convert key code to direction name
 
   if (direction) {
     // Following lines are the dynamic equivalent to:
@@ -14,9 +13,9 @@ CommandFactory.prototype.createCommandFromKeyCode = function(keyCode) {
     //    window.MoveUpCommand
     // and
     //    MoveUpCommand
-    var capitalizedDirection = direction[0].toUpperCase() + direction.substr(1),
+    var capitalizedDirection = direction[0].toUpperCase() + direction.slice(1),
         commandClass = window['Move' + capitalizedDirection + 'Command']
 
-    return new commandClass(self.$pony)
+    return new commandClass(this.$pony)
   }
 }
